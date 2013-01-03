@@ -1,0 +1,11 @@
+.vagrant
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+.bundle
+vendor/bundle
+vendor/cookbooks
+.ssh/
