@@ -18,7 +18,7 @@ namespace :chef do
     attribute
     solo
   end
-  after 'deploy:finalize_update', 'chef:default'
+  after 'deploy', 'chef:default'
 
   task :cookbooks do
     run "mkdir -p #{chef_dir}/vendor"

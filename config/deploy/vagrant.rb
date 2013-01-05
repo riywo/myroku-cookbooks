@@ -2,6 +2,8 @@ server '192.168.110.111', :admin, :proxy, :app, :db
 set :user, 'vagrant'
 set :password, 'vagrant'
 
+set :repository, 'file:///vagrant'
+
 set :default_attribute, {
   :authorization => {
     :sudo => {
