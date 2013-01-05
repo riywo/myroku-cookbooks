@@ -26,12 +26,12 @@ namespace :chef do
   end
 
   task :config do
-    run "mkdir -p #{chef_dir}/cache"
+    run "mkdir -p #{cache_dir}"
     file = <<-RUBY
       require 'pathname'
       root = Pathname File.expand_path('../', __FILE__)
       
-      file_cache_path root + "cache"
+      file_cache_path "#{cache_dir}"
       cookbook_path   [ root + "cookbooks", root + "vendor/cookbooks"]
       role_path       root + "roles"
     RUBY
@@ -53,6 +53,10 @@ namespace :chef do
 
   task :solo do
     run "#{sudo} chef-solo -c #{solo_rb} -j #{node_json}"
+  end
+
+  def cache_dir
+    File.join(deploy_to, 'shared', 'chef-cache')
   end
 
   def solo_rb
