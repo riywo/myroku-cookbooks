@@ -21,6 +21,6 @@ end
 
 namespace :chef do
   task :solo do
-    run "cd #{deploy_to}/current && #{sudo} chef-solo -c solo.rb -j vagrant.json"
+    run "#{sudo} chef-solo -c #{deploy_to}/current/solo.rb -j #{deploy_to}/current/vagrant.json"
   end
 end

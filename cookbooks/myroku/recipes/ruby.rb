@@ -17,7 +17,7 @@ rbenv_gem "bundler" do
   ruby_version node['myroku']['ruby_version']
 end
 
-execute "rbenv local #{node['myroku']['ruby_version']}" do
+execute "bash -l -c 'rbenv local #{node['myroku']['ruby_version']}'" do
   user  myroku_user
   group myroku_user
   cwd   myroku_home
