@@ -1,32 +1,23 @@
-Vagrant::Config.run do |config|
-  config.vm.host_name = "myroku-server"
-  config.vm.box = "precise64"
-  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  config.vm.network :hostonly, "192.168.110.111"
-  config.vm.customize ["modifyvm", :id, "--memory", 512]
-  config.vm.customize ["modifyvm", :id, "--cpus", 4]
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks", "vendor/cookbooks"]
-    chef.roles_path = "roles"
-    chef.add_role("myroku_admin")
-    chef.add_role("myroku_proxy")
-    chef.add_role("myroku_app")
-    chef.add_role("myroku_db")
-    chef.json = {
-      :authorization => {
-        :sudo => {
-          :users => ["vagrant"],
-        },
-      },
-      :mysql => {
-        :server_root_password   => 'rootpass',
-        :server_debian_password => 'debpass',
-        :server_repl_password   => 'replpass'
-      },
-      :myroku => {
-        :ssh => {
-          :private_key => <<EOF,
------BEGIN RSA PRIVATE KEY-----
+{
+  "run_list": [
+    "role[myroku_admin]"
+  , "role[myroku_proxy]"
+  , "role[myroku_app]"
+  , "role[myroku_db]"
+  ]
+, "authorization": {
+    "sudo": {
+      "users": ["vagrant"]
+    }
+  }
+, "mysql": {
+    "server_root_password"   : "rootpass"
+  , "server_debian_password" : "debpass"
+  , "server_repl_password"   : "replpass"
+  }
+, "myroku": {
+    "ssh": {
+      "private_key": "-----BEGIN RSA PRIVATE KEY-----
 MIIEpAIBAAKCAQEAvpltEarhGVcfIGXgOGfpkN7M/X4j81il6G96mlg6GW4CgFBy
 m0/2C1VcO04SyOIXZzRBLYoKpfwynxyxwiOVNUKPjVuGiLxuCR6SShR5qRz4kqs7
 cmXLy5BGgSkbFAwQrYO1ZjVQWE9XnjmgONiuIZwJlME4TmvT+JLNVNnmhbIosK4q
@@ -52,16 +43,13 @@ K/QYZmk1DiJKkFMSJT9y1not6Frmo2FaeTcTARqiWR++j4ipSp4B1qix+3x5CoRv
 NZQy4QKBgQCWR7fmnr/lAOi6TivYCzfu/Lmql0zG6QRtUuB0HHU1n3x/+XEfFPVC
 EIaEaHU1t87WzQhIxi3vFHA1p9/RXiEYssfvOBeo5NqAIYpuhHBI+CzZYdYAZPaV
 Dif8ijrJv2tURtnHo4FojFtNDDhT8fyNazOqoWQ30PcLd2ml5hICZg==
------END RSA PRIVATE KEY-----
-EOF
-          :public_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+mW0RquEZVx8gZeA4Z+mQ3sz9fiPzWKXob3qaWDoZbgKAUHKbT/YLVVw7ThLI4hdnNEEtigql/DKfHLHCI5U1Qo+NW4aIvG4JHpJKFHmpHPiSqztyZcvLkEaBKRsUDBCtg7VmNVBYT1eeOaA42K4hnAmUwThOa9P4ks1U2eaFsiiwrio6yM9dUDn8huvvWuzOMgVnshH5YW1iMC8ZdTxbU0j0im53/Za+TTDqYUugW2BF0+dNb5ToL9I9ATHWAFJjrinLpgxHDka/nAwBae1DQLVrI0S80w/7G1z3wQiAA111ZX3nEzqof1AmR6GAPbFDbgKVS+dtJzjQPR9f/uBJ created by vagrant',
-        },
-        :servers => {
-          :app   => ['localhost'],
-          :proxy => ['localhost'],
-          :db    => ['localhost'],
-        },
-      },
+-----END RSA PRIVATE KEY-----"
+    , "public_key" : "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+mW0RquEZVx8gZeA4Z+mQ3sz9fiPzWKXob3qaWDoZbgKAUHKbT/YLVVw7ThLI4hdnNEEtigql/DKfHLHCI5U1Qo+NW4aIvG4JHpJKFHmpHPiSqztyZcvLkEaBKRsUDBCtg7VmNVBYT1eeOaA42K4hnAmUwThOa9P4ks1U2eaFsiiwrio6yM9dUDn8huvvWuzOMgVnshH5YW1iMC8ZdTxbU0j0im53/Za+TTDqYUugW2BF0+dNb5ToL9I9ATHWAFJjrinLpgxHDka/nAwBae1DQLVrI0S80w/7G1z3wQiAA111ZX3nEzqof1AmR6GAPbFDbgKVS+dtJzjQPR9f/uBJ created by vagrant"
     }
-  end
-end
+  , "servers": {
+      "app"   : ["localhost"]
+    , "proxy" : ["localhost"]
+    , "db"    : ["localhost"]
+    }
+  }
+}

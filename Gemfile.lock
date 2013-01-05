@@ -97,6 +97,7 @@ GEM
       systemu
       yajl-ruby
     polyglot (0.3.3)
+    railsless-deploy (1.0.2)
     rake (10.0.3)
     rest-client (1.6.7)
       mime-types (>= 1.16)
@@ -114,8 +115,6 @@ GEM
       multi_json (>= 1.0.4)
       net-http-persistent (>= 2.8)
       net-ssh
-    roundsman (0.1.0)
-      capistrano (~> 2.12)
     solve (0.4.1)
       json
     systemu (2.5.2)
@@ -141,7 +140,8 @@ PLATFORMS
 
 DEPENDENCIES
   berkshelf
+  capistrano
   moneta (= 0.6.0)
+  railsless-deploy
   rake
-  roundsman
   vagrant (~> 1.0.5)
