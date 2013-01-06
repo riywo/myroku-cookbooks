@@ -12,8 +12,6 @@
     $ bundle exec vagrant up
     (takes a long time because of ruby-build)
     $ bundle exec vagrant ssh
-    > sudo dpkg-reconfigure -f readline dash
-    Use dash as the default system shell (/bin/sh)? n
 
 Setup myroku-server
 

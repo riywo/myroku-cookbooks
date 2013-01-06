@@ -14,12 +14,7 @@ when "ubuntu","debian"
     interpreter "bash"
     user "root"
     code <<-EOF
-expect -c '
-spawn dpkg-reconfigure -f readline dash
-expect "Use dash as the default system shell (/bin/sh)?"
-send "n\\n"
-interact
-'
+echo "dash    dash/sh boolean false" | debconf-set-selections ; dpkg-reconfigure --frontend=noninteractive dash
     EOF
   end
 end
