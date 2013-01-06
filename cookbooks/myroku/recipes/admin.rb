@@ -29,24 +29,6 @@ servers.each do |server|
   end
 end
 
-execute "gitconfig user" do
-  user myroku_user
-  group myroku_user
-  cwd myroku_home
-  environment ({'HOME' => myroku_home})
-  command "git config --global user.name #{myroku_user}"
-  not_if "git config --global --get user.name"
-end
-
-execute "gitconfig email" do
-  user myroku_user
-  group myroku_user
-  cwd myroku_home
-  environment ({'HOME' => myroku_home})
-  command "git config --global user.email #{myroku_user}@localhost"
-  not_if "git config --global --get user.email"
-end
-
 execute "git clone gitolite-admin" do
   user myroku_user
   group myroku_user
@@ -54,6 +36,22 @@ execute "git clone gitolite-admin" do
   environment ({'HOME' => myroku_home})
   command "git clone git@localhost:gitolite-admin /var/myroku/gitolite-admin"
   not_if {File.exists? "/var/myroku/gitolite-admin"}
+end
+
+execute "gitconfig user" do
+  user myroku_user
+  group myroku_user
+  cwd "/var/myroku/gitolite-admin"
+  command "git config user.name #{myroku_user}"
+  not_if "git config --get user.name"
+end
+
+execute "gitconfig email" do
+  user myroku_user
+  group myroku_user
+  cwd "/var/myroku/gitolite-admin"
+  command "git config user.email #{myroku_user}@localhost"
+  not_if "git config --get user.email"
 end
 
 directory "/var/log/myroku" do
