@@ -66,7 +66,7 @@ execute "git clone myroku-server" do
   group myroku_user
   cwd myroku_home
   environment ({'HOME' => myroku_home})
-  command "git clone git@github.com:riywo/myroku-server.git #{myroku_home}/myroku-server"
+  command "git clone https://github.com/riywo/myroku-server.git #{myroku_home}/myroku-server"
   not_if {File.exists? "#{myroku_home}/myroku-server"}
 end
 
