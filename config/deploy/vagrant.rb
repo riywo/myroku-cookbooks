@@ -2,7 +2,9 @@ server '192.168.110.111', :admin, :proxy, :app, :db
 set :user, 'vagrant'
 set :password, 'vagrant'
 
-set :repository, 'file:///vagrant'
+set :deploy_via, :copy
+set :repository, File.expand_path('../../../', __FILE__)
+set :local_repository, '/vagrant'
 
 set :default_attribute, {
   :authorization => {

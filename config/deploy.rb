@@ -4,7 +4,7 @@ require 'capistrano/ext/multistage'
 
 set :application, "myroku-cookbooks"
 set :scm, :git
-set :repository,  "git@github.com:riywo/myroku-cookbooks.git"
+set :repository,  "https://github.com/riywo/myroku-cookbooks.git"
 set(:deploy_to) { "/home/#{user}/#{application}" }
 set :use_sudo, false
 

@@ -15,6 +15,7 @@ node.set['gitolite2']['public_key_path'] = "#{myroku_home}/.ssh/id_rsa.pub"
 include_recipe "gitolite2"
 
 servers = (node['myroku']['servers']['app'] + node['myroku']['servers']['proxy'] + node['myroku']['servers']['db']).uniq
+servers.push('localhost')
 servers.each do |server|
   execute "add #{server} to known_hosts" do
     user myroku_user
