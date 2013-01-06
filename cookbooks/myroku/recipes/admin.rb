@@ -74,3 +74,22 @@ file "#{myroku_home}/myroku-server/config/servers.yml" do
   content YAML.dump(node['myroku']['servers'].to_hash)
 end
 
+execute "add DATABASE_URL to .env" do
+  database_url = "mysql2://#{node['myroku']['mysql_user']['user']}:#{node['myroku']['mysql_user']['password']}@localhost/#{node['myroku']['mysql_db']}"
+  user myroku_user
+  group myroku_user
+  cwd myroku_home
+  environment ({'HOME' => myroku_home})
+  command "echo 'DATABASE_URL=\"#{database_url}\"' >> #{myroku_home}/myroku-server/.env"
+  not_if "grep 'DATABASE_URL=\"#{database_url}\"' #{myroku_home}/myroku-server/.env"
+end
+
+execute "add REDIS_URL to .env" do
+  redis_url = "redis://localhost:#{node['redisio']['servers'][0]['port']}/0"
+  user myroku_user
+  group myroku_user
+  cwd myroku_home
+  environment ({'HOME' => myroku_home})
+  command "echo 'REDIS_URL=\"#{redis_url}\"' >> #{myroku_home}/myroku-server/.env"
+  not_if "grep 'REDIS_URL=\"#{redis_url}\"' #{myroku_home}/myroku-server/.env"
+end

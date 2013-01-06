@@ -1,4 +1,4 @@
-<% node['myroku']['mysql_grants'].each { |grant| %>
-CREATE DATABASE IF NOT EXISTS `<%= grant['database'] %>`;
-GRANT ALL ON `<%= grant['database'] %>`.* TO '<%= grant['database'] %>'@'<%= grant['host'] || '%' %>' IDENTIFIED BY '<%= grant['password'] %>';
-<% } %>
+GRANT ALL ON <%= @grant['database'] == '*' ? '*' : "`#{@grant['database']}`" %>.*
+TO '<%= @grant['user'] %>'@'<%= @grant['host'] || '%' %>'
+IDENTIFIED BY '<%= @grant['password'] %>'
+<%= @grant['grant_option'] ? 'WITH GRANT OPTION ' : '' %>;
