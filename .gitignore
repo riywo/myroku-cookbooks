@@ -8,4 +8,5 @@
 .bundle
 vendor/bundle
 vendor/cookbooks
-.ssh/
+node.json
+solo.rb

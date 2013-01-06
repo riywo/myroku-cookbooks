@@ -6,6 +6,15 @@ set :deploy_via, :copy
 set :repository, File.expand_path('../../../', __FILE__)
 set :local_repository, '/vagrant'
 
+namespace :chef do
+  task :exam do
+    set :chef_dir, "/vagrant"
+    config
+    attribute
+    solo
+  end
+end
+
 set :default_attribute, {
   :authorization => {
     :sudo => {
