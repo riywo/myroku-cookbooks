@@ -67,3 +67,10 @@ execute "git clone myroku-server" do
   not_if {File.exists? "#{myroku_home}/myroku-server"}
 end
 
+require 'yaml'
+file "#{myroku_home}/myroku-server/config/servers.yml" do
+  owner myroku_user
+  group myroku_user
+  content YAML.dump(node['myroku']['servers'].to_hash)
+end
+
