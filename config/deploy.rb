@@ -70,8 +70,11 @@ namespace :chef do
   def all_servers
     servers = {}
     roles.each do |role, obj|
-      next if role == :admin
-      servers[role] = obj.servers
+      if role == :admin
+        servers[role] = obj.servers.first
+      else
+        servers[role] = obj.servers
+      end
     end
     servers
   end

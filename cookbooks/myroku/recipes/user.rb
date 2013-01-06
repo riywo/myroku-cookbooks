@@ -44,6 +44,11 @@ directory "/var/myroku/bin" do
   group myroku_user
 end
 
+directory "/var/myroku/cache" do
+  owner myroku_user
+  group myroku_user
+end
+
 directory "/var/log/myroku" do
   owner myroku_user
   group myroku_user

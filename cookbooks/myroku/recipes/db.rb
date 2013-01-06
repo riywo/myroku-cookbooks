@@ -37,5 +37,5 @@ execute "grant mysql" do
 end
 
 execute "create database" do
-  command "echo 'CREATE DATABASE IF NOT EXISTS #{node['myroku']['mysql_db']}' | mysql -uroot -p#{node['mysql']['server_root_password']}"
+  command "echo 'CREATE DATABASE IF NOT EXISTS `#{node['myroku']['mysql_db']}`' | mysql -uroot -p#{node['mysql']['server_root_password']}"
 end

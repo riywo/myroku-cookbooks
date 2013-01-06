@@ -7,3 +7,4 @@ run_list [
   "recipe[mysql::server]",
   "recipe[myroku::db]",
 ]
+override_attributes "mysql" => { "bind_address" => '0.0.0.0' }
