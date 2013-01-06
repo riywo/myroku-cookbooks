@@ -40,3 +40,13 @@ node.set['authorization']['sudo']['groups'] = ['sudo']
 node.set['authorization']['sudo']['passwordless'] = true
 
 include_recipe 'myroku::user'
+
+include_recipe 'daemontools'
+service "daemontools" do
+  case node[:platform_family]
+  when "debian"
+    service_name "svscan"
+    provider Chef::Provider::Service::Upstart
+  end
+  action [ :enable, :start ]
+end
